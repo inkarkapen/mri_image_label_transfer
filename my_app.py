@@ -17,10 +17,10 @@ def get_all_file_numbers(folder_path):
     return all_numbers
 
 
-st.header("""Nissl Brain Image Segmentation & Labeling""")
+st.header("""Brain Image Segmentation & Labeling""")
 
 train_image_numbers = get_all_file_numbers("./training_images/images/")
-train_image_num = st.selectbox("**Pre-labeled Nissl slabs (training set, ordered):**", train_image_numbers, index=0, key=None, help=None, on_change=None, args=None, kwargs=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
+train_image_num = st.selectbox("**Pre-labeled brain slabs (training set, ordered):**", train_image_numbers, index=0, key=None, help=None, on_change=None, args=None, kwargs=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
 
 train_col1, train_col2 = st.columns(2)
 with st.container():
@@ -41,7 +41,7 @@ test_image_anno = []
 test_col1, test_col2 = st.columns(2)
 with st.container():
     with test_col1:
-        test_image_num = st.selectbox("**Unlabeled Nissl slabs (testing set, same order):**", test_image_numbers, index=0, key=None, help=None, on_change=None, args=None, kwargs=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
+        test_image_num = st.selectbox("**Unlabeled brain slabs (testing set, same order):**", test_image_numbers, index=0, key=None, help=None, on_change=None, args=None, kwargs=None, placeholder="Choose an option", disabled=False, label_visibility="visible")
     with test_col2:
         st.write("")
         st.write("")
