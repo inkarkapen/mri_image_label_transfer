@@ -7,6 +7,20 @@ from sklearn.semi_supervised import LabelPropagation
 model = SimpleUNet(in_channels=1, base_channels=16, out_channels=64)
 model.eval()
 
+# deterministic color map from label ID → RGB
+def colorize_labels(label_img, bg_label=0):
+    max_lab = int(label_img.max())
+    lut = np.zeros((max_lab + 1, 3), dtype=np.uint8)
+
+    for lab in np.unique(label_img):
+        if lab == bg_label:
+            lut[lab] = (0, 0, 0)  # background black
+        else:
+            rng = np.random.default_rng(seed=lab)  # seed by label id
+            lut[lab] = rng.integers(0, 256, size=3, dtype=np.uint8)
+
+    return lut[label_img]
+    
 def generate_image_label(test_nissl, nissl, anno):
     features_fixed = extract_features_unet(model, nissl)
     features_test_nissl = extract_features_unet(model, test_nissl)
@@ -41,3 +55,4 @@ def generate_image_label(test_nissl, nissl, anno):
 
     #np.save("../data/anno2.npy", anno2)
     return anno2
+
